@@ -1,0 +1,5 @@
+@charset "UTF-8";
+.test {
+    padding: 1rem 2rem;
+    border: 3px solid #000;
+  }
