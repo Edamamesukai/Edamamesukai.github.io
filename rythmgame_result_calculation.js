@@ -1,6 +1,6 @@
 const canvas_id_list = ["image_canvas", "perfectimage", "greatimage", "goodimage", "badimage", "missimage"];
 
-function imageinput(target){
+function imageinput(target) {
     console.log("画像を受け取りました。");
 
     var image = new Image();
@@ -14,7 +14,7 @@ function imageinput(target){
 
             // 各リザルトを取得するためのオフセットを設定
             var xOffset = 690;
-            var yOffset = 440;
+            var yOffset = 450;
 
             for (var canvas_id of canvas_id_list) {
                 // メインのcanvasの設定
@@ -22,16 +22,23 @@ function imageinput(target){
                 var context = canvas.getContext("2d");
 
                 // drawImage(image, xOffset, yOffset, width, height)
-                if (canvas_id === "image_canvas"){
+                if (canvas_id === "image_canvas") {
                     canvas.width = image.width;
                     canvas.height = image.height;
                     context.drawImage(image, 0, 0);
                 } else {
                     // drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
                     canvas.width = 80;
-                    canvas.height = 35;
-                    context.drawImage(image, xOffset, yOffset, 80, 40, 0, 0, 80, 40);
-                    yOffset += 40;
+                    canvas.height = 36;
+                    context.drawImage(image, xOffset, yOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+                    yOffset += canvas.height;
+
+                    // Tesseract.jsを使用して数字を読み取る
+                    console.log(canvas.toDataURL('image/png'));
+                    Tesseract.recognize(canvas.toDataURL('image/png'))
+                        .then(function (result) {
+                            console.log(result.data.text);
+                        });
                 }
             }
         }
