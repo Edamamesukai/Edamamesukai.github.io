@@ -46,7 +46,8 @@ function imageinput(target) {
                 }
                 var totalnotes = results[0]+results[1]+results[2]+results[3]+results[4];
                 console.log(totalnotes);
-                document.getElementById("score").textContent = Math.floor(1000000/totalnotes*1.01*results[0] + 1000000/totalnotes*results[1] + 1000000/totalnotes*(results[2] + results[3])*0.5).toLocaleString();
+                // document.getElementById("score").textContent = Math.floor(1000000/totalnotes*1.01*results[0] + 1000000/totalnotes*results[1] + 1000000/totalnotes*(results[2] + results[3])*0.5).toLocaleString();
+                document.getElementById("score").textContent = "現在制作中です";
             }
 
             processCanvas();
