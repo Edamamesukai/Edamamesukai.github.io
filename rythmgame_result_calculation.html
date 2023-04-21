@@ -5,11 +5,15 @@
         <script src='https://cdn.rawgit.com/naptha/tesseract.js/0.2.0/dist/tesseract.js'></script>
     <body>
         <a href="index.html">ホームページに戻る</a><br>
-        工事中…<br>
-        プロセカのリザルトをチュウニズムの計算式に当てはめれるようにする予定<br>
+        工事中…<br><br><br>
+        プロセカのリザルトをチュウニズムの計算式に当てはめれるプログラム<br>
         <input type="file" accept="image/*" oninput="imageinput(this)"><br>
         <p id="imagesize">ここに縦横のピクセル数を表示します<br></p>
         <p id="score">ここにスコアを表示します<br></p>
+        <b>注意事項・免責事項</b><br>
+        ・このプログラムは現在制作中です。画像の解像度によっては上手く画像が切り取れず計算が出来ない、もしくは間違ったスコアになる可能性があります。<br>
+        ・画像を自動で読み取ってるので、計算を間違える可能性があります<br>
+        ・当プログラムを使用する場合は、ユーザー自身の責任において使用してください。本プログラムを使用したことによって生じたいかなる損害や不利益についても、製作者は一切責任を負いません。<br>
         <canvas id="image_canvas"></canvas><br>
         <canvas id="perfectimage"></canvas><br>
         <canvas id="greatimage"></canvas><br>
