@@ -3,12 +3,13 @@
   background:repeating-linear-gradient(45deg, black 0 5%, yellow 5% 10%);
   width: 100vw;
   padding: 30px 0px;
+  text-align: center;
 }
 
 .box-title {
   background-color: rgba(0, 0 ,0 , 0.9);
   color: #ff0000;
-  margin: 0 15vw;
+  display: inline-block;
   font-weight: bold;
   font-size: 5vw;
 }
@@ -19,7 +20,7 @@
   color: #ffffff;
   text-align: center;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 7vw;
 }
 
 .test {
@@ -30,4 +31,15 @@
 .article-paragraph {
   margin: 0 30%;
   font-size: 20px;
+}
+
+.Programs {
+  font-size: 20px;
+}
+
+details {
+  padding: 0.5em 1em;
+  margin: 0 30%;
+  border: solid 3px #6091d3;
+  border-radius: 5px;
 }
