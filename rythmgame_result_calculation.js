@@ -1,10 +1,23 @@
 const canvas_id_list = ["imageCanvas", "perfectImage", "greatImage", "goodImage", "badImage", "missImage"];
 
+// ページが読み込まれたときのイベントリスナー
+document.addEventListener("DOMContentLoaded", function () {
+    // localStorageを使って保存した設定を呼び出す
+    document.getElementById("device").selectedIndex = localStorage.getItem("device");
+
+    // 端末の種類を選択したときのイベントリスナー
+    document.getElementById("device").addEventListener("change", function () {
+        localStorage.setItem("device", document.getElementById("device").selectedIndex);
+    })
+});
+
 function imageInput(target) {
     console.log("画像を受け取りました。");
 
     var image = new Image();
     var reader = new FileReader();
+
+    console.log(document.getElementById("device").value);
 
     reader.onload = function (e) {
         document.getElementById("calculateButton").disabled = true;
@@ -13,9 +26,15 @@ function imageInput(target) {
             console.log("横幅：%d, 高さ：%d", image.naturalWidth, image.naturalHeight);
             document.getElementById("imagesize").textContent = `縦：${image.naturalWidth}px, 横：${image.naturalHeight}px`;
 
-            // 各リザルトを取得するためのオフセットを設定
-            var xOffset = image.naturalWidth * 0.465;
-            var yOffset = image.naturalHeight * 0.6;
+            // 各リザルトを取得するための端末ごとのオフセットを設定
+            var xOffset, yOffset;
+            if (document.getElementById("device").value === "smartphone") {
+                xOffset = image.naturalWidth * 0.465;
+                yOffset = image.naturalHeight * 0.595;
+            } else if (document.getElementById("device").value === "tablet") {
+                xOffset = image.naturalWidth * 0.465;
+                yOffset = image.naturalHeight * 0.57;
+            }
 
             async function processCanvas() {
                 var results = [];
@@ -40,9 +59,15 @@ function imageInput(target) {
                         }
 
                     } else {
-                        // drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
-                        canvas.width = image.naturalWidth * 80 / 1334;
-                        canvas.height = image.naturalHeight * 36 / 750;
+                        // 各パラメータの切り取るサイズを割合で
+                        if (document.getElementById("device").value === "smartphone") {
+                            canvas.width = image.naturalWidth * 0.06;
+                            canvas.height = image.naturalHeight * 0.048;
+                        } else if (document.getElementById("device").value === "tablet") {
+                            canvas.width = image.naturalWidth * 0.06;
+                            canvas.height = image.naturalHeight * 0.037;
+                        }
+
                         context.drawImage(image, xOffset, yOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
                         yOffset += canvas.height;
 
@@ -110,7 +135,7 @@ function scoreCalculate(results) {
     document.getElementById("score").textContent = "現在制作中です";
     var score = Math.floor(1000000 / totalNotes * 1.01 * results[0] + 1000000 / totalNotes * results[1] + 1000000 / totalNotes * (results[2] + results[3]) * 0.5);
     if (isNaN(score)) {
-        // document.getElementById("score").textContent = "計算ができませんでした";
+        document.getElementById("score").textContent = "計算ができませんでした";
     } else {
         function getRank(score) {
             for (const key in rank) {
@@ -121,8 +146,8 @@ function scoreCalculate(results) {
             }
         }
 
-            // document.getElementById("score").textContent = `スコア：${score.toLocaleString()}, ランク：${getRank(score)}`;
-        }
-
-        document.getElementById("calculateButton").disabled = false;
+        // document.getElementById("score").textContent = `スコア：${score.toLocaleString()} ランク：${getRank(score)}`;
     }
+
+    document.getElementById("calculateButton").disabled = false;
+}
