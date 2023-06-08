@@ -146,7 +146,7 @@ function scoreCalculate(results) {
             }
         }
 
-        // document.getElementById("score").textContent = `スコア：${score.toLocaleString()} ランク：${getRank(score)}`;
+        document.getElementById("score").textContent = `スコア：${score.toLocaleString()} ランク：${getRank(score)}`;
     }
 
     document.getElementById("calculateButton").disabled = false;
