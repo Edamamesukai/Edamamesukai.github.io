@@ -59,3 +59,16 @@ canvas {
 #twitter-embed {
   margin: 0 30%
 }
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  display: inline-block; /* ラベルをインラインブロック要素にする */
+  padding: 50px 30px;
+  margin: 10px; /* 上下左右に余白を追加する */
+  color: #ffffff;
+  background-color: #384878;
+  cursor: pointer;
+}

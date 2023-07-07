@@ -72,12 +72,21 @@ function imageInput(target) {
                         yOffset += canvas.height;
 
                         // Tesseract.jsを使用して数字を読み取る
-                        var result = await Tesseract.recognize(canvas.toDataURL('image/png'), {
-                            lang: 'eng',
-                            tessedit_char_whitelist: '0123456789'
+                        const { TesseractWorker, OEM, PSM } = Tesseract;
+                        const worker = new TesseractWorker();
+
+                        await worker.recognize(canvas.toDataURL('image/png'), 'eng', { // 1. 解析のオプションを指定して実行
+                            tessedit_char_whitelist: '123456789'
+                        }).progress(function (p) { // 2. 解析中に実行する処理を記載
+                            console.log('progress', p)
+                        }).then(function (e) { // 3. 解析完了後の処理を記載
+                            console.log(e); //コンソールに解析結果を出力
+                            result = e.text.replace(/\r?\n/g, ''); //解析結果をHTMLに埋め込み
+                            console.log(result);
+                            worker.terminate();
                         });
-                        console.log(`${canvas_id.replace("Image", "")}：${Number(result.text.replace(/\n/g, ""))}`);
-                        results.push(Number(result.text.replace(/\n/g, "")));
+                        console.log(`${canvas_id.replace("Image", "")}：${Number(result.replace(/\n/g, ""))}`);
+                        results.push(Number(result.replace(/\n/g, "")));
                     }
                 }
 

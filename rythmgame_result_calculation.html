@@ -6,7 +6,7 @@
     <meta property="og:description" content="プロセカのリザルトをチュウニズムのリザルトに置き換えるよ(制作中…)">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="rythmgame_result_calculation.js"></script>
-    <script src='https://cdn.rawgit.com/naptha/tesseract.js/0.2.0/dist/tesseract.js'></script>
+    <script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js'></script>
 
 <body>
     <div class="box">
@@ -46,8 +46,12 @@
             <span id="score">ここにスコアを表示します</span>
         </div>
     </div>
-    <input type="file" accept="image/*" oninput="imageInput(this)"><input type="button" value="手動で計算する"
-        id="calculateButton" onclick="calculateResults()"><br>
+    <label>
+        スマートフォンの方はこちら
+        <img src="image/無料のスマートフォンのアイコン素材 (3).png">
+        <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this)">
+    </label>
+    <input type="button" value="手動で計算する" id="calculateButton" onclick="calculateResults()"><br>
     <p>端末の種類を選んでください</p>
     <select id="device">
         <option value="smartphone">スマートフォン</option>
