@@ -1,12 +1,11 @@
 <html>
-
 <head>
     <title>音ゲーのリザルト変換</title>
     <meta property="og:title" content="音ゲーのリザルト変換">
     <meta property="og:description" content="プロセカのリザルトをチュウニズムのリザルトに置き換えるよ(制作中…)">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="rythmgame_result_calculation.js"></script>
-    <script src='https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/tesseract.js@4.1.1/dist/tesseract.min.js'></script>
 
 <body>
     <div class="box">
@@ -47,26 +46,30 @@
         </div>
     </div>
     <label>
-        スマートフォンの方はこちら
-        <img src="image/無料のスマートフォンのアイコン素材 (3).png">
-        <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this)">
+        <div class="inputContainer">
+            <span>スマートフォンの方はこちら</span><br>
+            <img src="image/smartphone.png">
+            <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'smartphone')">
+        </div>
+    </label>
+    <label>
+        <div class="inputContainer">
+            <span>タブレットの方はこちら</span><br>
+            <img src="image/tablet.png">
+            <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'tablet')">
+        </div>
     </label>
     <input type="button" value="手動で計算する" id="calculateButton" onclick="calculateResults()"><br>
-    <p>端末の種類を選んでください</p>
-    <select id="device">
-        <option value="smartphone">スマートフォン</option>
-        <option value="tablet">タブレット</option>
-    </select>
     <p id="imagesize">ここに縦横のピクセル数を表示します<br></p>
     <b>注意事項・免責事項</b><br>
     ・このプログラムは現在制作中です。画像の解像度によっては上手く画像が切り取れず計算が出来ない、もしくは間違ったスコアになる可能性があります。<br>
-    ・画像を自動で読み取ってため計算を間違える可能性があります。<br>
+    ・画像をTesseract.jsでOCRしてるため、計算を間違える可能性があります。<br>
     ・手動で数値を打ち込む場合は間違えないように注意してください。<br>
     ・GREATとBADはATTACKとして計算しています。<br>
     ・計算は出来ますが何か問題がある可能性を考慮して計算結果が出力されないようになってます。<br>
-    ・スマホのブラウザだと上手く動作しないみたいです。パソコンでお願いします。<br>
     ・画像はスクリーンショットでお願いします<br>
     ・当プログラムを使用する場合は、ユーザー自身の責任において使用してください。本プログラムを使用したことによって生じたいかなる損害や不利益についても、製作者は一切責任を負いません。<br>
+    制作者：枝豆スカイ
     <div style="display: flex;">
         <canvas id="perfectImage"></canvas>
         <canvas id="greatImage"></canvas>

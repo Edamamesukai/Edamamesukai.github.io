@@ -1,23 +1,20 @@
 const canvas_id_list = ["imageCanvas", "perfectImage", "greatImage", "goodImage", "badImage", "missImage"];
 
-// ページが読み込まれたときのイベントリスナー
-document.addEventListener("DOMContentLoaded", function () {
-    // localStorageを使って保存した設定を呼び出す
-    document.getElementById("device").selectedIndex = localStorage.getItem("device");
-
-    // 端末の種類を選択したときのイベントリスナー
-    document.getElementById("device").addEventListener("change", function () {
-        localStorage.setItem("device", document.getElementById("device").selectedIndex);
-    })
-});
-
-function imageInput(target) {
+function imageInput(target, device) {
     console.log("画像を受け取りました。");
+    console.log(device);
+
+    // 値を初期化します
+    document.getElementById("totalNotes").textContent = "ここに総ノーツ数を表示します";
+    document.getElementById("score").textContent = "ここにスコアを表示します";
+    document.getElementById("perfectTextBox").value = "";
+    document.getElementById("greatTextBox").value = "";
+    document.getElementById("goodTextBox").value = "";
+    document.getElementById("badTextBox").value = "";
+    document.getElementById("missTextBox").value ="";
 
     var image = new Image();
     var reader = new FileReader();
-
-    console.log(document.getElementById("device").value);
 
     reader.onload = function (e) {
         document.getElementById("calculateButton").disabled = true;
@@ -28,10 +25,10 @@ function imageInput(target) {
 
             // 各リザルトを取得するための端末ごとのオフセットを設定
             var xOffset, yOffset;
-            if (document.getElementById("device").value === "smartphone") {
+            if (device === "smartphone") {
                 xOffset = image.naturalWidth * 0.465;
                 yOffset = image.naturalHeight * 0.595;
-            } else if (document.getElementById("device").value === "tablet") {
+            } else if (device === "tablet") {
                 xOffset = image.naturalWidth * 0.465;
                 yOffset = image.naturalHeight * 0.57;
             }
@@ -60,10 +57,10 @@ function imageInput(target) {
 
                     } else {
                         // 各パラメータの切り取るサイズを割合で
-                        if (document.getElementById("device").value === "smartphone") {
+                        if (device === "smartphone") {
                             canvas.width = image.naturalWidth * 0.06;
                             canvas.height = image.naturalHeight * 0.048;
-                        } else if (document.getElementById("device").value === "tablet") {
+                        } else if (device === "tablet") {
                             canvas.width = image.naturalWidth * 0.06;
                             canvas.height = image.naturalHeight * 0.037;
                         }
@@ -71,22 +68,22 @@ function imageInput(target) {
                         context.drawImage(image, xOffset, yOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
                         yOffset += canvas.height;
 
-                        // Tesseract.jsを使用して数字を読み取る
-                        const { TesseractWorker, OEM, PSM } = Tesseract;
-                        const worker = new TesseractWorker();
+                        // Tesseract.jsを使用するコード
+                        const { createWorker } = Tesseract;
+                        const worker = await createWorker();
 
-                        await worker.recognize(canvas.toDataURL('image/png'), 'eng', { // 1. 解析のオプションを指定して実行
-                            tessedit_char_whitelist: '123456789'
-                        }).progress(function (p) { // 2. 解析中に実行する処理を記載
-                            console.log('progress', p)
-                        }).then(function (e) { // 3. 解析完了後の処理を記載
-                            console.log(e); //コンソールに解析結果を出力
-                            result = e.text.replace(/\r?\n/g, ''); //解析結果をHTMLに埋め込み
-                            console.log(result);
-                            worker.terminate();
+                        await worker.loadLanguage('eng');
+                        await worker.initialize('eng');
+                        await worker.setParameters({
+                            tessedit_char_whitelist: '0123456789',
                         });
-                        console.log(`${canvas_id.replace("Image", "")}：${Number(result.replace(/\n/g, ""))}`);
-                        results.push(Number(result.replace(/\n/g, "")));
+
+                        result = await worker.recognize(canvas.toDataURL('image/png'));
+                        result = result.data.text;
+                        await worker.terminate();
+
+                        console.log(`${canvas_id.replace("Image", "")}：${Number(result)}`);
+                        results.push(Number(result));
                     }
                 }
 
@@ -104,7 +101,7 @@ function imageInput(target) {
 function calculateResults() {
     document.getElementById("calculateButton").disabled = true;
 
-    console.log("ボタンをクリックしました");
+    console.log("手動で計算しました");
 
     var results = [];
     for (idname of ["perfectTextBox", "greatTextBox", "goodTextBox", "badTextBox", "missTextBox"]) {
