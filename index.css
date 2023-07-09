@@ -1,0 +1,40 @@
+@charset "UTF-8";
+.box {
+  background:repeating-linear-gradient(45deg, black 0 5%, yellow 5% 10%);
+  width: 100vw;
+  padding: 10px 0px;
+  text-align: center;
+}
+
+.box-title {
+  background-color: rgba(0, 0 ,0 , 0.9);
+  color: #ff0000;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 3vw;
+}
+
+.main {
+  padding: 50px;
+  background-image: linear-gradient(90deg, rgba(144, 245, 154, 1), rgba(4, 202, 255, 1));
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 5vw;
+}
+
+.article-paragraph {
+  margin: 0 30%;
+  font-size: 20px;
+}
+
+details {
+  padding: 0.5em 1em;
+  margin: 0 30%;
+  border: solid 3px #6091d3;
+  border-radius: 5px;
+}
+
+#twitter-embed {
+  margin: 0 30%
+}

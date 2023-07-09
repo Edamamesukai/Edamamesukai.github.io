@@ -11,7 +11,7 @@ function imageInput(target, device) {
     document.getElementById("greatTextBox").value = "";
     document.getElementById("goodTextBox").value = "";
     document.getElementById("badTextBox").value = "";
-    document.getElementById("missTextBox").value ="";
+    document.getElementById("missTextBox").value = "";
 
     var image = new Image();
     var reader = new FileReader();
@@ -66,9 +66,35 @@ function imageInput(target, device) {
                         }
 
                         context.drawImage(image, xOffset, yOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
+                        // 2値化
+                        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                        var data = imageData.data;
+                        var threshold = 165; // 2値化の閾値
+
+                        for (var i = 0; i < data.length; i += 4) {
+                            var red = data[i];
+                            var green = data[i + 1];
+                            var blue = data[i + 2];
+                            var gray = (red + green + blue) / 3;
+
+                            if (gray < threshold) {
+                                data[i] = 0;
+                                data[i + 1] = 0;
+                                data[i + 2] = 0;
+                            } else {
+                                data[i] = 255;
+                                data[i + 1] = 255;
+                                data[i + 2] = 255;
+                            }
+                        }
+
+                        // 2値化した画像データをキャンバスに描画
+                        context.putImageData(imageData, 0, 0);
+
                         yOffset += canvas.height;
 
-                        // Tesseract.jsを使用するコード
+                        // Tesseract.jsを使用して数字を読み取る
                         const { createWorker } = Tesseract;
                         const worker = await createWorker();
 
