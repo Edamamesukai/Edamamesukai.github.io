@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title>音ゲーのリザルト変換</title>
     <meta property="og:title" content="音ゲーのリザルト変換">
@@ -10,74 +11,78 @@
 <body>
     <div class="box">
         <div style="text-align:center" class="box-title">＊このサイトは工事中です＊</div>
-    </div><br>
-    <a href="index.html">ホームページに戻る</a><br>
-    プロセカのリザルトをチュウニズムの計算式に当てはめれるプログラムです<br>
-    <div class="container">
-        <div class="textbox">
-            <span>PERFECT</span><br>
-            <input type="text" id="perfectTextBox" size="5">
-        </div>
-        <div class="textbox">
-            <span>GREAT</span><br>
-            <input type="text" id="greatTextBox" size="5">
-        </div>
-        <div class="textbox">
-            <span>GOOD</span><br>
-            <input type="text" id="goodTextBox" size="5">
-        </div>
-        <div class="textbox">
-            <span>BAD</span><br>
-            <input type="text" id="badTextBox" size="5">
-        </div>
-        <div class="textbox">
-            <span>MISS</span><br>
-            <input type="text" id="missTextBox" size="5">
-        </div>
-        <div class="textbox">
-            <span>総ノーツ数</span><br>
-            <span id="totalNotes">ここに総ノーツ数を表示します</span>
-        </div>
     </div>
     <div class="container">
-        <div class="textbox">
-            <span>スコア</span><br>
-            <span id="score">ここにスコアを表示します</span>
+        <a href="index.html" class="Flexbox">ホームページに戻る</a>
+        <span class="Flexbox">プロセカのリザルトをチュウニズムの計算式に当てはめれるプログラムです</span>
+        <div style="width: 600px;">
+            <div class="textbox">
+                <span>スコア</span><br>
+                <span id="score">ここにスコアを表示します</span>
+            </div>
+            <div class="textbox">
+                <span>総ノーツ数</span>
+                <span id="totalNotes">ここに総ノーツ数を表示します</span>
+            </div>
+                <div class="textbox">
+                    <span>PERFECT</span>
+                    <input type="text" id="perfectTextBox" size="5">
+                </div>
+                <div class="textbox">
+                    <span>GREAT</span>
+                    <input type="text" id="greatTextBox" size="5">
+                </div>
+                <div class="textbox">
+                    <span>GOOD</span>
+                    <input type="text" id="goodTextBox" size="5">
+                </div>
+                <div class="textbox">
+                    <span>BAD</span>
+                    <input type="text" id="badTextBox" size="5">
+                </div>
+                <div class="textbox">
+                    <span>MISS</span>
+                    <input type="text" id="missTextBox" size="5">
+                </div>
         </div>
-    </div>
-    <label>
-        <div class="inputContainer">
-            <span>スマートフォンの方はこちら</span><br>
-            <img src="image/smartphone.png">
-            <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'smartphone')">
+            <div class="textbox" style="width: 600px;">
+                <span>ランク</span><br>
+                <span id="rank">ここにランクを表示します</span>
+            </div>
+
+        <label>
+            <div class="inputContainer">
+                <span>スマートフォンの方はこちら</span><br>
+                <img src="image/smartphone.png">
+                <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'smartphone')">
+            </div>
+        </label>
+        <label>
+            <div class="inputContainer">
+                <span>タブレットの方はこちら</span><br>
+                <img src="image/tablet.png">
+                <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'tablet')">
+            </div>
+        </label>
+        <input type="button" value="手動で計算する" id="calculateButton" onclick="calculateResults()">
+        <p id="imagesize" class="FlexBox">ここに縦横のピクセル数を表示します</p>
+        <b class="FlexBox">注意事項・免責事項</b>
+        ・このプログラムは現在制作中です。画像の解像度によっては上手く画像が切り取れず計算が出来ない、もしくは間違ったスコアになる可能性があります。<br>
+        ・画像をTesseract.jsでOCRしてるため、計算を間違える可能性があります。<br>
+        ・手動で数値を打ち込む場合は間違えないように注意してください。<br>
+        ・GREATとBADはATTACKとして計算しています。<br>
+        ・計算は出来ますが何か問題がある可能性を考慮して計算結果が出力されないようになってます。<br>
+        ・画像はスクリーンショットでお願いします<br>
+        ・当プログラムを使用する場合は、ユーザー自身の責任において使用してください。本プログラムを使用したことによって生じたいかなる損害や不利益についても、製作者は一切責任を負いません。<br>
+        制作者：枝豆スカイ
+        <div style="display: flex;">
+            <canvas id="perfectImage"></canvas>
+            <canvas id="greatImage"></canvas>
+            <canvas id="goodImage"></canvas>
+            <canvas id="badImage"></canvas>
+            <canvas id="missImage"></canvas>
         </div>
-    </label>
-    <label>
-        <div class="inputContainer">
-            <span>タブレットの方はこちら</span><br>
-            <img src="image/tablet.png">
-            <input type="file" id="inputImage" accept="image/*" oninput="imageInput(this, 'tablet')">
-        </div>
-    </label>
-    <input type="button" value="手動で計算する" id="calculateButton" onclick="calculateResults()"><br>
-    <p id="imagesize">ここに縦横のピクセル数を表示します<br></p>
-    <b>注意事項・免責事項</b><br>
-    ・このプログラムは現在制作中です。画像の解像度によっては上手く画像が切り取れず計算が出来ない、もしくは間違ったスコアになる可能性があります。<br>
-    ・画像をTesseract.jsでOCRしてるため、計算を間違える可能性があります。<br>
-    ・手動で数値を打ち込む場合は間違えないように注意してください。<br>
-    ・GREATとBADはATTACKとして計算しています。<br>
-    ・計算は出来ますが何か問題がある可能性を考慮して計算結果が出力されないようになってます。<br>
-    ・画像はスクリーンショットでお願いします<br>
-    ・当プログラムを使用する場合は、ユーザー自身の責任において使用してください。本プログラムを使用したことによって生じたいかなる損害や不利益についても、製作者は一切責任を負いません。<br>
-    制作者：枝豆スカイ
-    <div style="display: flex;">
-        <canvas id="perfectImage"></canvas>
-        <canvas id="greatImage"></canvas>
-        <canvas id="goodImage"></canvas>
-        <canvas id="badImage"></canvas>
-        <canvas id="missImage"></canvas>
-    </div>
-    <canvas id="imageCanvas"></canvas>
+        <canvas id="imageCanvas"></canvas>
 </body>
 
 </html>

@@ -70,7 +70,7 @@ function imageInput(target, device) {
                         // 2値化
                         var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
                         var data = imageData.data;
-                        var threshold = 165; // 2値化の閾値
+                        var threshold = 160; // 2値化の閾値
 
                         for (var i = 0; i < data.length; i += 4) {
                             var red = data[i];
@@ -178,7 +178,8 @@ function scoreCalculate(results) {
             }
         }
 
-        document.getElementById("score").textContent = `スコア：${score.toLocaleString()} ランク：${getRank(score)}`;
+        document.getElementById("score").textContent = `${score.toLocaleString()}`;
+        document.getElementById("rank").textContent = `${getRank(score)}`;
     }
 
     document.getElementById("calculateButton").disabled = false;

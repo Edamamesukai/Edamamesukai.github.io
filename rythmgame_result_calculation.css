@@ -1,7 +1,6 @@
 @charset "UTF-8";
 .box {
   background:repeating-linear-gradient(45deg, black 0 5%, yellow 5% 10%);
-  width: 100vw;
   padding: 10px 0px;
   text-align: center;
 }
@@ -14,15 +13,34 @@
   font-size: 3vw;
 }
 
-canvas {
-  display : flex;
-  flex-direction : column;
+body {
+  width: 1200px;
+  margin: auto;
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  display: flex; /* Flexboxを使用 */
+  align-items: center; /* アイテムを中央付近に集める */
+  justify-content: center; /* Flexboxを中央に寄せる */
+  flex-wrap: wrap;
+}
+
+.FlexBox {
+  width: 1200px;
+  text-align: center;
+}
+
+#score {
+  font-size: 50px;
+}
+
+#rank {
+  font-size: 50px;
+}
+
+canvas {
+  display : flex;
+  flex-direction : column;
 }
 
 .inputContainer {
@@ -33,7 +51,6 @@ canvas {
 }
 
 .textbox {
-  margin: 5px;
   text-align: center;
 }
 
@@ -43,8 +60,10 @@ input[type="file"] {
 
 label {
   display: inline-block; /* ラベルをインラインブロック要素にする */
-  padding: 50px 30px;
+  width: 550px;
+  padding: 50px 0px;
   margin: 10px; /* 上下左右に余白を追加する */
+  text-align: center; /* 中央寄せにする */
   color: #ffffff;
   font-size: 20px;
   background-color: #384878;
