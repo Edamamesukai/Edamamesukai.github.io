@@ -165,7 +165,7 @@ function scoreCalculate(results) {
     document.getElementById("totalNotes").textContent = totalNotes;
     console.log(`ノーツ数：${totalNotes}`);
     document.getElementById("score").textContent = "現在制作中です";
-    var score = Math.floor(1000000 / totalNotes * 1.01 * results[0] + 1000000 / totalNotes * results[1] + 1000000 / totalNotes * (results[2] + results[3]) * 0.5);
+    var score = Math.floor((1000000 / totalNotes) * (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5));
     if (isNaN(score)) {
         document.getElementById("score").textContent = "計算ができませんでした";
     } else {
