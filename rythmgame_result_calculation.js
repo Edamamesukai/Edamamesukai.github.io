@@ -150,9 +150,7 @@ function imageInput(target, device) {
                         await worker.terminate();
 
                         console.log(
-                            `${canvas_id.replace("Image", "")}：${Number(
-                                result
-                            )}`
+                            `${canvas_id.replace("Image", "")}：${Number(result)}`
                         );
                         results.push(Number(result));
                     }
@@ -217,10 +215,7 @@ function scoreCalculate(results) {
     document.getElementById("totalNotes").textContent = totalNotes;
     console.log(`ノーツ数：${totalNotes}`);
     document.getElementById("score").textContent = "現在制作中です";
-    var score = Math.floor(
-        (1000000 / totalNotes) *
-            (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5)
-    );
+    var score = Math.floor((1000000 / totalNotes) * (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5));
     var exscore = results[0] * 3 + results[1] * 2 + results[2];
     var maxExscore = totalNotes * 3;
     if (isNaN(score)) {
@@ -235,19 +230,10 @@ function scoreCalculate(results) {
             }
         }
 
-        document.getElementById(
-            "score"
-        ).textContent = `${score.toLocaleString()}`;
-        document.getElementById("rank").textContent = `${getRank(
-            score
-        ).toLocaleString()}`;
+        document.getElementById("score").textContent = `${score.toLocaleString()}`;
+        document.getElementById("rank").textContent = `${getRank(score).toLocaleString()}`;
 
-        document.getElementById(
-            "exscore"
-        ).textContent = `EXSCORE：${exscore.toLocaleString()} / ${maxExscore.toLocaleString()}、達成率：${(
-            100 *
-            (Math.round((exscore / maxExscore) * 10000) / 10000)
-        ).toLocaleString()}%`;
+        document.getElementById("exscore").textContent = `EXSCORE：${exscore.toLocaleString()} / ${maxExscore.toLocaleString()}、達成率：${(100 * (Math.round((exscore / maxExscore) * 10000) / 10000)).toLocaleString()}%`;
     }
 
     document.getElementById("calculateButton").disabled = false;
