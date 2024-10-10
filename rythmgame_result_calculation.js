@@ -1,11 +1,19 @@
-const canvas_id_list = ["imageCanvas", "perfectImage", "greatImage", "goodImage", "badImage", "missImage"];
+const canvas_id_list = [
+    "imageCanvas",
+    "perfectImage",
+    "greatImage",
+    "goodImage",
+    "badImage",
+    "missImage",
+];
 
 function imageInput(target, device) {
     console.log("画像を受け取りました。");
     console.log(device);
 
     // 値を初期化します
-    document.getElementById("totalNotes").textContent = "ここに総ノーツ数を表示します";
+    document.getElementById("totalNotes").textContent =
+        "ここに総ノーツ数を表示します";
     document.getElementById("score").textContent = "ここにスコアを表示します";
     document.getElementById("perfectTextBox").value = "";
     document.getElementById("greatTextBox").value = "";
@@ -20,14 +28,20 @@ function imageInput(target, device) {
         document.getElementById("calculateButton").disabled = true;
         image.src = e.target.result;
         image.onload = function () {
-            console.log("横幅：%d, 高さ：%d", image.naturalWidth, image.naturalHeight);
-            document.getElementById("imagesize").textContent = `縦：${image.naturalWidth}px, 横：${image.naturalHeight}px`;
+            console.log(
+                "横幅：%d, 高さ：%d",
+                image.naturalWidth,
+                image.naturalHeight
+            );
+            document.getElementById(
+                "imagesize"
+            ).textContent = `縦：${image.naturalWidth}px, 横：${image.naturalHeight}px`;
 
             // 各リザルトを取得するための端末ごとのオフセットを設定
             var xOffset, yOffset;
             if (device === "smartphone") {
-                xOffset = image.naturalWidth * 0.465;
-                yOffset = image.naturalHeight * 0.595;
+                xOffset = image.naturalWidth * 0.2875;
+                yOffset = image.naturalHeight * 0.5824;
             } else if (device === "tablet") {
                 xOffset = image.naturalWidth * 0.465;
                 yOffset = image.naturalHeight * 0.57;
@@ -48,27 +62,52 @@ function imageInput(target, device) {
                         // リサイズ後の横の大きさが1200px以下になるように計算
                         if (image.width > 1200) {
                             canvas.width = 1200;
-                            canvas.height = image.height * (canvas.width / image.width);
-                            context.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width, canvas.height);
+                            canvas.height =
+                                image.height * (canvas.width / image.width);
+                            context.drawImage(
+                                image,
+                                0,
+                                0,
+                                image.width,
+                                image.height,
+                                0,
+                                0,
+                                canvas.width,
+                                canvas.height
+                            );
                         } else {
                             // 元の画像をそのまま描画
                             context.drawImage(image, 0, 0);
                         }
-
                     } else {
                         // 各パラメータの切り取るサイズを割合で
                         if (device === "smartphone") {
-                            canvas.width = image.naturalWidth * 0.06;
-                            canvas.height = image.naturalHeight * 0.048;
+                            canvas.width = image.naturalWidth * 0.05;
+                            canvas.height = image.naturalHeight * 0.06;
                         } else if (device === "tablet") {
                             canvas.width = image.naturalWidth * 0.06;
-                            canvas.height = image.naturalHeight * 0.037;
+                            canvas.height = image.naturalHeight * 0.023;
                         }
 
-                        context.drawImage(image, xOffset, yOffset, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+                        context.drawImage(
+                            image,
+                            xOffset,
+                            yOffset,
+                            canvas.width,
+                            canvas.height,
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.height
+                        );
 
                         // 2値化
-                        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                        var imageData = context.getImageData(
+                            0,
+                            0,
+                            canvas.width,
+                            canvas.height
+                        );
                         var data = imageData.data;
                         var threshold = 160; // 2値化の閾値
 
@@ -98,27 +137,33 @@ function imageInput(target, device) {
                         const { createWorker } = Tesseract;
                         const worker = await createWorker();
 
-                        await worker.loadLanguage('eng');
-                        await worker.initialize('eng');
+                        await worker.loadLanguage("eng");
+                        await worker.initialize("eng");
                         await worker.setParameters({
-                            tessedit_char_whitelist: '0123456789',
+                            tessedit_char_whitelist: "0123456789",
                         });
 
-                        result = await worker.recognize(canvas.toDataURL('image/png'));
+                        result = await worker.recognize(
+                            canvas.toDataURL("image/png")
+                        );
                         result = result.data.text;
                         await worker.terminate();
 
-                        console.log(`${canvas_id.replace("Image", "")}：${Number(result)}`);
+                        console.log(
+                            `${canvas_id.replace("Image", "")}：${Number(
+                                result
+                            )}`
+                        );
                         results.push(Number(result));
                     }
                 }
 
-                scoreCalculate(results)
+                scoreCalculate(results);
             }
 
             processCanvas();
-        }
-    }
+        };
+    };
 
     // 画像を文字列に変換
     reader.readAsDataURL(target.files[0]);
@@ -130,29 +175,35 @@ function calculateResults() {
     console.log("手動で計算しました");
 
     var results = [];
-    for (idname of ["perfectTextBox", "greatTextBox", "goodTextBox", "badTextBox", "missTextBox"]) {
+    for (idname of [
+        "perfectTextBox",
+        "greatTextBox",
+        "goodTextBox",
+        "badTextBox",
+        "missTextBox",
+    ]) {
         results.push(parseInt(document.getElementById(idname).value));
     }
 
-    scoreCalculate(results)
+    scoreCalculate(results);
 }
 
 function scoreCalculate(results) {
     const rank = {
         "SSS+": { min: 1009000, max: 1010000 },
-        "SSS": { min: 1007500, max: 1008999 },
+        SSS: { min: 1007500, max: 1008999 },
         "SS+": { min: 1005000, max: 1007499 },
-        "SS": { min: 1000000, max: 1004999 },
+        SS: { min: 1000000, max: 1004999 },
         "S+": { min: 990000, max: 999999 },
-        "S": { min: 975000, max: 989999 },
-        "AAA": { min: 950000, max: 974999 },
-        "AA": { min: 925000, max: 949999 },
-        "A": { min: 900000, max: 924999 },
-        "BBB": { min: 800000, max: 899999 },
-        "BB": { min: 700000, max: 799999 },
-        "B": { min: 600000, max: 699999 },
-        "C": { min: 500000, max: 599999 },
-        "D": { min: 0, max: 499999 }
+        S: { min: 975000, max: 989999 },
+        AAA: { min: 950000, max: 974999 },
+        AA: { min: 925000, max: 949999 },
+        A: { min: 900000, max: 924999 },
+        BBB: { min: 800000, max: 899999 },
+        BB: { min: 700000, max: 799999 },
+        B: { min: 600000, max: 699999 },
+        C: { min: 500000, max: 599999 },
+        D: { min: 0, max: 499999 },
     };
 
     document.getElementById("perfectTextBox").value = results[0];
@@ -161,11 +212,17 @@ function scoreCalculate(results) {
     document.getElementById("badTextBox").value = results[3];
     document.getElementById("missTextBox").value = results[4];
 
-    var totalNotes = results[0] + results[1] + results[2] + results[3] + results[4];
+    var totalNotes =
+        results[0] + results[1] + results[2] + results[3] + results[4];
     document.getElementById("totalNotes").textContent = totalNotes;
     console.log(`ノーツ数：${totalNotes}`);
     document.getElementById("score").textContent = "現在制作中です";
-    var score = Math.floor((1000000 / totalNotes) * (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5));
+    var score = Math.floor(
+        (1000000 / totalNotes) *
+            (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5)
+    );
+    var exscore = results[0] * 3 + results[1] * 2 + results[2];
+    var maxExscore = totalNotes * 3;
     if (isNaN(score)) {
         document.getElementById("score").textContent = "計算ができませんでした";
     } else {
@@ -178,8 +235,19 @@ function scoreCalculate(results) {
             }
         }
 
-        document.getElementById("score").textContent = `${score.toLocaleString()}`;
-        document.getElementById("rank").textContent = `${getRank(score)}`;
+        document.getElementById(
+            "score"
+        ).textContent = `${score.toLocaleString()}`;
+        document.getElementById("rank").textContent = `${getRank(
+            score
+        ).toLocaleString()}`;
+
+        document.getElementById(
+            "exscore"
+        ).textContent = `EXSCORE：${exscore.toLocaleString()} / ${maxExscore.toLocaleString()}、達成率：${(
+            100 *
+            (Math.round((exscore / maxExscore) * 10000) / 10000)
+        ).toLocaleString()}%`;
     }
 
     document.getElementById("calculateButton").disabled = false;

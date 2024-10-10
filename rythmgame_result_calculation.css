@@ -14,7 +14,8 @@
 }
 
 body {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   margin: auto;
 }
 
@@ -26,7 +27,8 @@ body {
 }
 
 .FlexBox {
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   text-align: center;
 }
 
@@ -54,13 +56,19 @@ canvas {
   text-align: center;
 }
 
+.notes {
+  text-align: right;
+  margin-right: 100px;
+}
+
 input[type="file"] {
   display: none;
 }
 
 label {
   display: inline-block; /* ラベルをインラインブロック要素にする */
-  width: 550px;
+  width: 46%;
+  max-width: 570px;
   padding: 50px 0px;
   margin: 10px; /* 上下左右に余白を追加する */
   text-align: center; /* 中央寄せにする */
@@ -68,5 +76,5 @@ label {
   font-size: 20px;
   background-color: #384878;
   cursor: pointer;
-border:solid 2px #A5A19A;/*線の種類・太さ・色*/
+border:solid 5px #A5A19A;/*線の種類・太さ・色*/
 }
