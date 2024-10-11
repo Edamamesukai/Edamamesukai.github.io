@@ -247,7 +247,7 @@ function scoreCalculate(results) {
     }
 
     // 無効にした各種ボタンを有効にする
-    document.getElementById("inputImageSmartphone").disabled = true;
-    document.getElementById("inputImageTablet").disabled = true;
+    document.getElementById("inputImageSmartphone").disabled = false;
+    document.getElementById("inputImageTablet").disabled = false;
     document.getElementById("calculateButton").disabled = false;
 }
