@@ -8,6 +8,10 @@ const canvas_id_list = [
 ];
 
 function imageInput(target, device) {
+    // 画像を入力するボタンを無効にする
+    document.getElementById("inputImageSmartphone").disabled = true;
+    document.getElementById("inputImageTablet").disabled = true;
+
     console.log("画像を受け取りました。");
     console.log(device);
 
@@ -242,5 +246,8 @@ function scoreCalculate(results) {
         document.getElementById("scoreAccuracy").textContent = `スコア依存の達成率：${scoreAccuracy.toString()}%`;
     }
 
+    // 無効にした各種ボタンを有効にする
+    document.getElementById("inputImageSmartphone").disabled = true;
+    document.getElementById("inputImageTablet").disabled = true;
     document.getElementById("calculateButton").disabled = false;
 }
