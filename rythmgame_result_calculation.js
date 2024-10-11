@@ -12,14 +12,14 @@ function imageInput(target, device) {
     console.log(device);
 
     // 値を初期化します
-    document.getElementById("totalNotes").textContent = "ここに総ノーツ数を表示します";
-    document.getElementById("score").textContent = "ここにスコアを表示します";
-    document.getElementById("rank").textContent = "ここにランクを表示します"
-    document.getElementById("perfectTextBox").value = "";
-    document.getElementById("greatTextBox").value = "";
-    document.getElementById("goodTextBox").value = "";
-    document.getElementById("badTextBox").value = "";
-    document.getElementById("missTextBox").value = "";
+    document.getElementById("totalNotes").textContent = "総ノーツ数を計算中…";
+    document.getElementById("score").textContent = "スコアを計算中…";
+    document.getElementById("rank").textContent = "ランクを計算中…"
+    document.getElementById("perfectTextBox").value = "計算中…";
+    document.getElementById("greatTextBox").value = "計算中…";
+    document.getElementById("goodTextBox").value = "計算中…";
+    document.getElementById("badTextBox").value = "計算中…";
+    document.getElementById("missTextBox").value = "計算中…";
 
     var image = new Image();
     var reader = new FileReader();
@@ -237,7 +237,7 @@ function scoreCalculate(results) {
         document.getElementById("rank").textContent = `${getRank(score)}`;
 
         document.getElementById("exscore").textContent = `EXSCORE：${exscore.toString()} / ${maxExscore.toString()}`;
-        document.getElementById("MAX").textContent = `MAX：${(exscore - maxExscore).toString()}`;
+        document.getElementById("MAX").textContent = `MAX：${(exscore - maxExscore) === 0 ? "MAX" : (exscore - maxExscore).toString()}`;
         document.getElementById("exscoreAccuracy").textContent = `EXSCORE依存の達成率：${exscoreAccuracy.toString()}%`;
         document.getElementById("scoreAccuracy").textContent = `スコア依存の達成率：${scoreAccuracy.toString()}%`;
     }
