@@ -12,9 +12,9 @@ function imageInput(target, device) {
     console.log(device);
 
     // 値を初期化します
-    document.getElementById("totalNotes").textContent =
-        "ここに総ノーツ数を表示します";
+    document.getElementById("totalNotes").textContent = "ここに総ノーツ数を表示します";
     document.getElementById("score").textContent = "ここにスコアを表示します";
+    document.getElementById("rank").textContent = "ここにランクを表示します"
     document.getElementById("perfectTextBox").value = "";
     document.getElementById("greatTextBox").value = "";
     document.getElementById("goodTextBox").value = "";
@@ -126,7 +126,7 @@ function imageInput(target, device) {
                                 data[i + 1] = 255;
                                 data[i + 2] = 255;
                             }
-                        }
+                        };
 
                         // 2値化した画像データをキャンバスに描画
                         context.putImageData(imageData, 0, 0);
@@ -218,6 +218,9 @@ function scoreCalculate(results) {
     var score = Math.floor((1000000 / totalNotes) * (1.01 * results[0] + results[1] + (results[2] + results[3]) * 0.5));
     var exscore = results[0] * 3 + results[1] * 2 + results[2];
     var maxExscore = totalNotes * 3;
+    var accuracyDigit = 4; // 達成率の桁数
+    var exscoreAccuracy = (100 * (exscore / maxExscore)).toFixed(accuracyDigit);
+    var scoreAccuracy = ((results[0] * 100 + results[1] * 70 + results[2] * 50) / totalNotes).toFixed(accuracyDigit);
     if (isNaN(score)) {
         document.getElementById("score").textContent = "計算ができませんでした";
     } else {
@@ -231,9 +234,12 @@ function scoreCalculate(results) {
         }
 
         document.getElementById("score").textContent = `${score.toLocaleString()}`;
-        document.getElementById("rank").textContent = `${getRank(score).toLocaleString()}`;
+        document.getElementById("rank").textContent = `${getRank(score)}`;
 
-        document.getElementById("exscore").textContent = `EXSCORE：${exscore.toLocaleString()} / ${maxExscore.toLocaleString()}、達成率：${(100 * (Math.round((exscore / maxExscore) * 10000) / 10000)).toLocaleString()}%`;
+        document.getElementById("exscore").textContent = `EXSCORE：${exscore.toString()} / ${maxExscore.toString()}`;
+        document.getElementById("MAX").textContent = `MAX：${(exscore - maxExscore).toString()}`;
+        document.getElementById("exscoreAccuracy").textContent = `EXSCORE依存の達成率：${exscoreAccuracy.toString()}%`;
+        document.getElementById("scoreAccuracy").textContent = `スコア依存の達成率：${scoreAccuracy.toString()}%`;
     }
 
     document.getElementById("calculateButton").disabled = false;

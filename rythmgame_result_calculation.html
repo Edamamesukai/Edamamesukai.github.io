@@ -49,7 +49,10 @@
             <span>ランク</span><br>
             <span id="rank">ここにランクを表示します</span>
         </div>
-        <div class="Flexbox" id="exscore" style="font-size: 32px;">EXSCORE：、達成率：</div>
+        <div class="Flexbox" id="exscore" style="font-size: 32px;">EXSCORE：</div>
+        <div class="Flexbox" id="MAX" style="font-size: 32px;">MAX：</div>
+        <div class="Flexbox" id="exscoreAccuracy" style="font-size: 32px;">EXSCORE基準の達成率：</div>
+        <div class="Flexbox" id="scoreAccuracy" style="font-size: 32px;">スコア(判定係数)基準の達成率：</div>
 
         <label>
             <div class="inputContainer">
@@ -76,14 +79,14 @@
         ・画像はスクリーンショットでお願いします。<br>
         ・当プログラムを使用する場合は、ユーザー自身の責任において使用してください。本プログラムを使用したことによって生じたいかなる損害や不利益についても、製作者は一切責任を負いません。<br>
         制作者：枝豆スカイ
-        <div style="display: flex;">
-            <canvas id="perfectImage"></canvas>
-            <canvas id="greatImage"></canvas>
-            <canvas id="goodImage"></canvas>
-            <canvas id="badImage"></canvas>
-            <canvas id="missImage"></canvas>
-        </div>
         <canvas id="imageCanvas"></canvas>
+        <div style="display: flex;">
+            <canvas id="perfectImage" style="display: none;"></canvas>
+            <canvas id="greatImage" style="display: none;"></canvas>
+            <canvas id="goodImage" style="display: none;"></canvas>
+            <canvas id="badImage" style="display: none;"></canvas>
+            <canvas id="missImage" style="display: none;"></canvas>
+        </div>
 </body>
 
 </html>
